@@ -1,4 +1,4 @@
-"use client"; // Ensures this runs only on the client side
+"use client"; // Ensure this is the first line
 
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,7 +8,7 @@ import { EducationForm } from "@/components/education-form";
 import { SkillsForm } from "@/components/skills-form";
 import { ResumePreview } from "@/components/resume-preview";
 import { Button } from "@/components/ui/button";
-import { Download, FileText } from "lucide-react";
+import { Download } from "lucide-react";
 import { toast } from "sonner"; // For toast notifications
 
 export type ResumeData = {
@@ -25,7 +25,7 @@ export type ResumeData = {
     company: string;
     position: string;
     startDate: string;
-    endDate: string;
+    endDate?: string;
     current: boolean;
     description: string;
   }[];
@@ -33,9 +33,9 @@ export type ResumeData = {
     id: string;
     institution: string;
     degree: string;
-    field: string;
+    field?: string;
     startDate: string;
-    endDate: string;
+    endDate?: string;
     current: boolean;
   }[];
   skills: string[];
@@ -83,13 +83,13 @@ export function ResumeBuilder() {
 
       // Add resume content to the PDF
       doc.setFontSize(18);
-      doc.text(resumeData.personalInfo.name, 15, 15);
+      doc.text(resumeData.personalInfo.name || "N/A", 15, 15);
       doc.setFontSize(12);
-      doc.text(`Email: ${resumeData.personalInfo.email}`, 15, 25);
-      doc.text(`Phone: ${resumeData.personalInfo.phone}`, 15, 35);
-      doc.text(`Location: ${resumeData.personalInfo.location}`, 15, 45);
-      doc.text(`Title: ${resumeData.personalInfo.title}`, 15, 55);
-      doc.text(`Summary: ${resumeData.personalInfo.summary}`, 15, 65);
+      doc.text(`Email: ${resumeData.personalInfo.email || "N/A"}`, 15, 25);
+      doc.text(`Phone: ${resumeData.personalInfo.phone || "N/A"}`, 15, 35);
+      doc.text(`Location: ${resumeData.personalInfo.location || "N/A"}`, 15, 45);
+      doc.text(`Title: ${resumeData.personalInfo.title || "N/A"}`, 15, 55);
+      doc.text(`Summary: ${resumeData.personalInfo.summary || "N/A"}`, 15, 65);
 
       // Save the PDF
       doc.save("resume.pdf");
