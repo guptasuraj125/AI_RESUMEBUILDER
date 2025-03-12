@@ -1,4 +1,4 @@
-"use client"; // Ensures this runs only on the client side
+"use client"; // Ensure this is the first line
 
 import type { ResumeData } from "@/components/resume-builder";
 
@@ -7,36 +7,37 @@ interface ResumePreviewProps {
 }
 
 export function ResumePreview({ resumeData }: ResumePreviewProps) {
-  if (!resumeData) return null; // Prevents errors if no data is provided
+  if (!resumeData) return null; // Prevents rendering errors if no data is provided
 
-  const { personalInfo, experience, education, skills } = resumeData;
+  // Extract values safely
+  const { personalInfo, experience, education, skills } = resumeData ?? {};
 
   return (
     <div className="font-sans text-sm bg-white p-8 rounded-lg shadow-lg border border-gray-100">
       {/* Header */}
       <div className="text-center mb-8">
-        {personalInfo?.name && (
+        {personalInfo.name && (
           <h1 className="text-3xl font-bold text-blue-800">{personalInfo.name}</h1>
         )}
-        {personalInfo?.title && (
+        {personalInfo.title && (
           <h2 className="text-lg text-purple-600 mt-2">{personalInfo.title}</h2>
         )}
 
         {/* Contact Info */}
         <div className="flex flex-wrap justify-center gap-x-4 mt-3 text-sm text-gray-700">
-          {personalInfo?.email && (
+          {personalInfo.email && (
             <div className="flex items-center gap-1">
               <span className="text-blue-600">✉️</span>
               {personalInfo.email}
             </div>
           )}
-          {personalInfo?.phone && (
+          {personalInfo.phone && (
             <div className="flex items-center gap-1">
               <span className="text-blue-600">📞</span>
               {personalInfo.phone}
             </div>
           )}
-          {personalInfo?.location && (
+          {personalInfo.location && (
             <div className="flex items-center gap-1">
               <span className="text-blue-600">📍</span>
               {personalInfo.location}
@@ -46,7 +47,7 @@ export function ResumePreview({ resumeData }: ResumePreviewProps) {
       </div>
 
       {/* Summary */}
-      {personalInfo?.summary && (
+      {personalInfo.summary && (
         <div className="mb-8">
           <h3 className="text-xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">
             Professional Summary
@@ -56,7 +57,7 @@ export function ResumePreview({ resumeData }: ResumePreviewProps) {
       )}
 
       {/* Experience */}
-      {experience?.length > 0 && (
+      {experience.length > 0 && (
         <div className="mb-8">
           <h3 className="text-xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">
             Work Experience
@@ -99,7 +100,7 @@ export function ResumePreview({ resumeData }: ResumePreviewProps) {
       )}
 
       {/* Education */}
-      {education?.length > 0 && (
+      {education.length > 0 && (
         <div className="mb-8">
           <h3 className="text-xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">
             Education
@@ -142,7 +143,7 @@ export function ResumePreview({ resumeData }: ResumePreviewProps) {
       )}
 
       {/* Skills */}
-      {skills?.length > 0 && (
+      {skills.length > 0 && (
         <div>
           <h3 className="text-xl font-bold text-blue-800 border-b-2 border-blue-200 pb-2 mb-4">
             Skills
